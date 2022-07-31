@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Is It Webflow</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h2>Is It Webflow</h2>
+    <input type="text" id="websiteUrl" placeholder="Website URL...">
+    <button id="checkBtn">Check</button>
+    <p id="result"></p>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        $(function() {
+            $("#checkBtn").click(function(e) {
+                let websiteUrl = $("#websiteUrl").val();
+                $("#result").html("Checking...");
+                $.ajax({
+                    url: "/check",
+                    method: "POST",
+                    data: `websiteUrl=${websiteUrl}`,
+                    success: (res) => {
+                        $("#result").html(res);
+                    },
+                    error: (err) => {
+                        console.log(err);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
